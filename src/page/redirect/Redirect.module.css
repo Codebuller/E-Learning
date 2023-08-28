@@ -1,0 +1,80 @@
+.screen{
+    background: var(--primaty-grey-light, #F6F5F4);
+    width: 100vw;
+    position: relative;
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+.login{
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    align-self: stretch;
+    width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 14px;
+    background: #FFF;
+
+box-shadow: 0px 22.898128509521484px 45.79625701904297px -11.449064254760742px rgba(52, 41, 39, 0.08);
+}
+.login_welcome_image{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+}
+.login_welcome_title{
+    color: var(--primaty-black, #000);
+text-align: center;
+font-family: Dela Gothic One;
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: 100%; /* 24px */
+letter-spacing: -0.96px;
+margin-bottom: 8px;
+}
+.login_welcome_subtitle{
+    color: var(--primaty-grey-dark, #757575);
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%; /* 19.6px */
+    letter-spacing: -0.56px;
+    align-self: stretch;
+}
+.login_log{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.login_log_one{
+    color: var(--primaty-black, #000);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 100%; /* 14px */
+    letter-spacing: -0.56px;
+    text-align: center;
+}
+.login_log_two{
+    color: #FFF;
+font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: 100%; /* 14px */
+letter-spacing: -0.56px;
+border-radius: 100px;
+background: var(--primaty-cyan-dark, #2B788B);
+display: flex;
+padding: 12px 20px;
+align-items: center;
+gap: 20px;
+}
