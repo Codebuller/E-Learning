@@ -1,8 +1,11 @@
-import React from "react"
+import React, { useEffect } from "react"
 import styles from './HomePage.module.css'
 import Footer from "../../components/footer/Footer";
 const HomePage = () => {
-  return (
+        
+        
+        
+  return (  
     <>   
         <div className={styles.mainView}>
 

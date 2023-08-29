@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import styles from './Sprint.module.css'
 const Sprint = () => {
-    const [state,setState] = useState(2);
+    const [state,setState] = useState<number>(3);
     const [level,setLevel] = useState('A1');
     const startGame = () =>{
         setTimeout(()=>{

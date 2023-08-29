@@ -64,7 +64,8 @@ letter-spacing: -0.48px;
     font-weight: 700;
     line-height: 100%; /* 16px */
     letter-spacing: -0.64px;
-    padding: 14px 22px;
+    padding: 22px 22px;
+    margin-bottom: 4px;
     border-radius: 100px;
     background: var(--primaty-cyan-dark, #2B788B);
 }

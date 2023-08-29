@@ -7,10 +7,13 @@ import {
   Route,
   Link,
 } from "react-router-dom";
+
 import HomePage from './page/homePage/HomePage.tsx';
 import Footer from './components/footer/Footer.tsx';
 import Navbar from './components/navbar/Navbar.tsx';
 import { Provider } from 'react-redux';
+
+
 import { createStore } from 'redux';
 import Redirect from './page/redirect/Redirect.tsx';
 import Login from './page/login/Login.tsx';
@@ -27,6 +30,10 @@ import Sprint from './page/sprint/Sprint.tsx';
 //       default: return state;
 //   }
 // }
+
+
+
+
 const router = createBrowserRouter([
   {
     path: "/",
