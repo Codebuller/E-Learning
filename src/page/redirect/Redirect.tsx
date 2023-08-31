@@ -1,5 +1,7 @@
 import React from "react"
 import styles from './Redirect.module.css'
+import UILogin from "../../UI/login/UILogin";
+import UISignUp from "../../UI/signUp/UISignUp";
 const Redirect = () => {
   return (
     
@@ -12,8 +14,8 @@ not available 🥺</h1>
                 <h1 className={styles.login_welcome_subtitle}>To use platform register or log in to your account</h1>
                 </div>
                 <div className={styles.login_log}>
-                    <h1 className={styles.login_log_one}>Log In →</h1>
-                    <h1 className={styles.login_log_two}>Sign Up</h1>
+                    <UILogin/>
+                    <UISignUp/>
                 </div>
             </div>
         </div>

@@ -1,0 +1,9 @@
+.text{
+    color: var(--primaty-black, #000);
+font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: 100%; /* 14px */
+letter-spacing: -0.56px;
+}

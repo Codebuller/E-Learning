@@ -1,0 +1,21 @@
+.container{
+    display: flex;
+    padding: 12px 20px;
+    align-items: center;
+    gap: 20px;
+    border-radius: 100px;
+    background: var(--primaty-cyan-dark, #2B788B);
+    color: #FFF;
+        font-family: Montserrat;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 100%; /* 14px */
+        letter-spacing: -0.56px;
+    }
+    .container:active{
+        background: white;
+    }
+    .container:active:first-child{ 
+        color: var(--primaty-cyan-dark, #2B788B);
+    }

@@ -1,5 +1,5 @@
 import React from "react"
-import styles from './Spiner.module.css'
+import styles from './UISpiner.module.css'
 const Spiner = () => {
   return (
     <svg className={styles.spiner} role="img" aria-label="Mouth and eyes come from 9:00 and rotate clockwise into position, right eye blinks, then all parts rotate and merge into 3:00" viewBox="0 0 128 128" width="64px" height="64px">

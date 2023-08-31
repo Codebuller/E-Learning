@@ -6,6 +6,15 @@
 	border: none;
 	
 }
+a {
+    text-decoration: none;
+    color: inherit;
+    }
+    a:hover {
+        text-decoration: none;
+        
+        cursor: default;
+        }
 #root{
 	overflow-x: hidden;
   
