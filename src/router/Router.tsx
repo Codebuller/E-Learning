@@ -20,10 +20,10 @@ export const PrivateRoutes = [
         ]
 export const PublicRoutes =  [
     { path:'/',
-     element: <Redirect/>,
+     element: <React.Fragment><Navbar/> <HomePage/> <Footer/></React.Fragment>,
  },
  { path:'/login',
-     element: <Login/>,
+     element: <React.Fragment><Login/><Footer/></React.Fragment>,
  },
  { path:'/redirect',
      element: <Redirect/>,

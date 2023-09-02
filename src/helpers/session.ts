@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 export const startSession = (user,name) => {
     sessionStorage.setItem("email", user.email);
     sessionStorage.setItem("name", name);
@@ -16,8 +17,11 @@ export const startSession = (user,name) => {
   
   export const endSession = () => {
     sessionStorage.clear();
+    const nav = useNavigate();
+    nav('/')
   }
   
-  export  function isLoggedIn() {
+  export const isLoggedIn = () => {
     return getSession().accessToken ?? false ;
   }
+  

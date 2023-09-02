@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import styles from './HomePage.module.css'
 import Footer from "../../components/footer/Footer";
+import { Link } from "react-router-dom";
 const HomePage = () => {
         
         
@@ -55,8 +56,12 @@ const HomePage = () => {
                 <h1 className={styles.twoWelcome_title}>Learn a language in a playful way</h1>
                 <h1 className={styles.twoWelcome_subtitle}>Make learning words more fun with mini-games</h1>
                 <div className={styles.cards}>
-                        <img src="/images/6.png" alt="Doesn't work" />  
+                        <Link to={'/sprint'}>
+                            <img src="/images/6.png" alt="Doesn't work" /> 
+                            </Link>
+                        <Link to={'/sprint'}>
                         <img src="/images/5.png" alt="Doesn't work" />
+                        </Link>
                 </div>
             </div>
             <div className={styles.textBookScreen}>

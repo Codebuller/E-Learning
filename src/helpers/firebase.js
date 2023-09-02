@@ -14,10 +14,10 @@ const firebaseConfig = {
   export const app = initializeApp(firebaseConfig);
   export const database = getDatabase(app);
   export const createUser = async (email, password) => {
+    // set(ref(database,user))
     return createUserWithEmailAndPassword(getAuth(app), email, password);
-    //set(ref(database,user))
+    
   }
-  
   export const signInUser = async (email, password) => {
     return await signInWithEmailAndPassword(getAuth(app), email, password);
   }

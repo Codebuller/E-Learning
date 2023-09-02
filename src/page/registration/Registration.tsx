@@ -3,11 +3,12 @@ import styles from './Registration.module.css'
 import {createUser,signInUser, database} from '../../helpers/firebase.js'
 import {startSession} from '../../helpers/session.js'
 import Spiner from "../../UI/spiner/UISpiner.js";
-import { useNavigate } from "react-router-dom";
 import { set, ref } from "firebase/database";
-
+import { useNavigate } from "react-router-dom";
+import {useDispatch } from 'react-redux'
 const Registration = () => {
   
+  const dispatch = useDispatch();
   const nav = useNavigate();
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState(['','']);
@@ -41,20 +42,22 @@ const Registration = () => {
       let response =  await createUser(email,password[0]);
       startSession(response.user, name);
       setWaiting(true)
+      dispatch({type:'LOGIN'})
       nav('/')
       
      
     }
     catch(error:any){
+      
       setWaiting(true)
       console.log(error.message)
      }
     
    }
-   set(ref(database,'user'+'555'),{
-    username: 'Ваня',
-    email:"text@mail.ru"
-   })
+  //  set(ref(database,'user'+'555'),{
+  //   username: 'Ваня',
+  //   email:"text@mail.ru"
+  //  })
   
 
   return ( 
@@ -63,11 +66,15 @@ const Registration = () => {
             <h1 className={styles.title}>Registration</h1>
             <form onSubmit={(e)=>{submit(e)}} className={styles.form_container} >
               <input value={name} type="text" onChange={(e)=>{setName(e.target.value)}} placeholder="Username" className={styles.form} />
-              <input value={password[0]}  onChange={(e)=>{setPassword([e.target.value,password[1]])}} type="password" placeholder="Password" className={styles.form} />
-              <input value={password[1]} onChange={(e)=>{setPassword([password[0],e.target.value])}} type="password" placeholder="Confirm Password" className={styles.form} />
               <input   value={email} onChange={(e)=>{setEmail(e.target.value)}} type="email" placeholder="Email" className={styles.form} />
-              <button className={styles.confirnBtn} type="submit">Registration</button>
-            </form>
+              
+              <input value={password[0]}  onChange={(e)=>{setPassword([e.target.value,password[1]])}} type='password' placeholder="Password" className={styles.form} />
+              <input value={password[1]} onChange={(e)=>{setPassword([password[0],e.target.value])}} type='password' placeholder="Confirm Password" className={styles.form} />
+              {waiting
+              ? <button className={styles.confirnBtn} type="submit">Registration</button>
+              : <Spiner   />
+              }
+              </form>
             
 {/*             
             {waiting 
