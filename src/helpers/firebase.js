@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set } from "firebase/database";
+import text from '../assets/test.txt'
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth} from "firebase/auth";
 const firebaseConfig = {
     apiKey: "AIzaSyCa_NRq0IAKKWTtHhI7qJDpAqJZl1JOvvw",
@@ -21,3 +22,28 @@ const firebaseConfig = {
   export const signInUser = async (email, password) => {
     return await signInWithEmailAndPassword(getAuth(app), email, password);
   }
+  
+  //logic for adding words to db
+  //
+  // fetch(text)
+  // .then(r => r.text())
+  // .then(text => {
+  //   let lines = text.split('\n')
+  //   for(let i = 0;i<lines.length;++i){
+  //     let pair = lines[i].split('/') 
+  //     set(ref(database,'words/'+i.toString()),{
+  //           ru: pair[1],
+  //           en: pair[0],
+  //       })
+      
+  //   }
+  // })
+  
+  // words = []
+  // set(ref(database,'words'+'i'),{
+  //   {
+  //     ru: word,
+  //     en:'',
+
+  //   }
+  // })
