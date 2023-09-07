@@ -28,8 +28,8 @@ const Login = () => {
       throw new Error('Not valid Email')
       if(password.length < 6)
       throw new Error('Name consist of minimum 6 letter')
-      let response = await signInUser(email,password);
-      startSession(response.user,'ivan');//Получение из бд должно быть
+      let response:any = (await signInUser(email,password)).user;
+      startSession(response ,'ivan');//Получение из бд должно быть
       setWaiting(true)
       dispatch({type:'LOGIN'})
       nav('/')
