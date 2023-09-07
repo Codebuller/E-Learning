@@ -1,5 +1,5 @@
-import Login from '../page/login/Login.tsx'
 import React from 'react';
+import Login from '../page/login/Login.tsx'
 import Redirect from '../page/redirect/Redirect.tsx'
 import Registration from '../page/registration/Registration.tsx'
 import HomePage from '../page/homePage/HomePage.tsx'
@@ -17,6 +17,12 @@ export const PrivateRoutes = [
         { path:'/',
             element: (<React.Fragment><Navbar/> <HomePage/> <Footer/></React.Fragment>),
         },
+        { path:'/sprint',
+            element: (<React.Fragment><Navbar/><Sprint/><Footer/></React.Fragment>),
+ },
+ { path:'/audio',
+            element: (<React.Fragment><Navbar/><Audio/><Footer/></React.Fragment>),
+ },
         ]
 export const PublicRoutes =  [
     { path:'/',
@@ -30,12 +36,6 @@ export const PublicRoutes =  [
  },
  { path:'/reg',
      element: <Registration/>,
- },
- { path:'/sprint',
-            element: (<React.Fragment><Navbar/><Sprint/><Footer/></React.Fragment>),
- },
- { path:'/audio',
-            element: (<React.Fragment><Navbar/><Audio/><Footer/></React.Fragment>),
  },
  ]
      
