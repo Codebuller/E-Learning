@@ -1,8 +1,10 @@
+import { User, UserInfo } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-export const startSession = (user,name) => {
-    sessionStorage.setItem("email", user.email);
+
+export const startSession = (user:any,name:string) => {
+    sessionStorage.setItem("email", user.email ?? 'null');
     sessionStorage.setItem("name", name);
-    sessionStorage.setItem("accessToken", user.accessToken);
+    sessionStorage.setItem("accessToken", user.accessToken ?? 'null');
     sessionStorage.setItem('UID',user.uid);
   }
   
