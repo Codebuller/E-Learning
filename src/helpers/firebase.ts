@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { DataSnapshot, child, get, getDatabase, ref, set } from "firebase/database";
+import { DataSnapshot, child, get, getDatabase, ref } from "firebase/database";
 
 import random from "random";
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth} from "firebase/auth";

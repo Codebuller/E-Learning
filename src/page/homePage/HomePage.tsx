@@ -1,6 +1,5 @@
-import React, { useEffect } from "react"
+import React from "react"
 import styles from './HomePage.module.css'
-import Footer from "../../components/footer/Footer";
 import { Link } from "react-router-dom";
 const HomePage = () => {
         

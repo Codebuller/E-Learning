@@ -1,4 +1,3 @@
-import { User, UserInfo } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 export const startSession = (user:any,name:string) => {
