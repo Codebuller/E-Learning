@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import styles from './Sprint.module.css'
-import {WordPair, getWord} from '../../helpers/firebase.js'
+import { getWord} from '../../helpers/firebase.js'
 import LevelPicker from "../../UI/levelPicker/LevelPicker.js";
 import Spiner from "../../UI/spiner/UISpiner.js";
 const Sprint = () => {
@@ -9,7 +9,7 @@ const Sprint = () => {
     const [score,setScore] = useState<number>(0);
     const blockRef = useRef<HTMLDivElement>(null);
     const [load,setLoad] = useState(true)
-    const [gameWords,setGameWords] = useState<WordPair|null>(null)
+    const [gameWords,setGameWords] = useState<any>(null)
     const generator = getWord();
     const [num,setNum] = useState(0);
     useEffect(()=>{

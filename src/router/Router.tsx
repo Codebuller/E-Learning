@@ -7,7 +7,6 @@ import Sprint from '../page/sprint/Sprint.tsx'
 import Navbar from '../components/navbar/Navbar.tsx';
 import Footer from '../components/footer/Footer.tsx';
 import Audio from '../page/audio/Audio.tsx';
-import { redirect } from 'react-router-dom';
 export const PrivateRoutes = [
            { path:'/about',
             element: <HomePage/>,
