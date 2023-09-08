@@ -61,7 +61,7 @@ const Audio = () => {
         <div className={styles.sprint_start}>
             <img src="/images/12.png" alt="Sorry" />
             <div className={styles.sprint_main}>
-                <h1 className={styles.sprint_main_title}>Sprint</h1>
+                <h1 className={styles.sprint_main_title}>Audio</h1>
                 <h1 className={styles.sprint_main_teg}>audition task</h1>
             </div>
             <h1 className={styles.subtitle}>The Audio-Call training develops vocabulary and improves listening comprehension.</h1>

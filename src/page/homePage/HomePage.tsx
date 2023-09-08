@@ -58,7 +58,7 @@ const HomePage = () => {
                         <Link to={'/sprint'}>
                             <img src="/images/6.png" alt="Doesn't work" /> 
                             </Link>
-                        <Link to={'/sprint'}>
+                        <Link to={'/audio'}>
                         <img src="/images/5.png" alt="Doesn't work" />
                         </Link>
                 </div>

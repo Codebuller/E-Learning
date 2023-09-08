@@ -1,17 +1,18 @@
 import React from "react"
 import styles from './Footer.module.css'
+import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className={styles.foot}>
         <ul className={styles.links}>
-            <li className={styles.link}>Home</li>
+            <li className={styles.link}><Link to={'/'}>Home</Link></li>
             <li className={styles.link}>Textbook</li>
             <li className={styles.link}>Statistics</li>
-            <li className={styles.link}>Sprint</li>
-            <li className={styles.link}>Audio-call</li>
-            <li className={styles.link}>Alex</li>
-            <li className={styles.link}>Gabriel</li>
-            <li className={styles.link}>Marcus</li>
+            <li className={styles.link}><Link to={'/sprint'}>Sprint</Link></li>
+            <li className={styles.link}><Link to={'/audio'}>Audio-call</Link></li>
+            <li className={styles.link}>Ivan</li>
+            <li className={styles.link}>The</li>
+            <li className={styles.link}>Best</li>
         </ul>
         <svg className={styles.br} xmlns="http://www.w3.org/2000/svg" width="335" height="2" viewBox="0 0 335 2" fill="none">
             <path d="M0 1L335 0.999985" stroke="#E0E0E0" strokeWidth="1.20466"/>

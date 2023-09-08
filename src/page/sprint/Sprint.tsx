@@ -4,29 +4,35 @@ import {WordPair, getWord} from '../../helpers/firebase.js'
 import LevelPicker from "../../UI/levelPicker/LevelPicker.js";
 import Spiner from "../../UI/spiner/UISpiner.js";
 const Sprint = () => {
-    const [index,setIndex] = useState<number>(0)
     const [state,setState] = useState<number>(0);
     const [level,setLevel] = useState('A1');
     const [score,setScore] = useState<number>(0);
     const blockRef = useRef<HTMLDivElement>(null);
     const [load,setLoad] = useState(true)
-    const [gameWords,setGameWords] = useState<WordPair[]>([])
+    const [gameWords,setGameWords] = useState<WordPair|null>(null)
+    const generator = getWord();
+    const [num,setNum] = useState(0);
     useEffect(()=>{
         const  fetch = async () =>{
-        const data = await getWord(30);
-        setGameWords(data);
+           
+            setGameWords((await generator.next()).value);
+                
         setLoad(false);
         }
         fetch();
     },[])
+
+    const next = async () =>{
+        setGameWords((await generator.next()).value);
+    }
     const [lives,setLives] = useState<number>(3)
     const validFn = (valid:boolean):void =>{
         
-        
-       
-
-        if(valid === gameWords[index].right)
+        if(valid === gameWords.right){
             setScore(score+30)
+            setNum(num + 1)
+        }
+            
         
         else{
             if (blockRef.current) {
@@ -38,12 +44,11 @@ const Sprint = () => {
         }
             setLives(lives - 1)
         }
-           
-            setIndex(index + 1);
+        next()
         
     }
     const resetGame = () =>{
-        setIndex(0)
+        
         setScore(0)
         setLives(3)
         setState(0)
@@ -107,8 +112,8 @@ const Sprint = () => {
                     <h1 className={lives>=2 ? `${styles.game_lives_item}` : `${styles.game_lives_item_empty}`}>✦</h1>
                     <h1 className={lives>=1 ? `${styles.game_lives_item}` : `${styles.game_lives_item_empty}`}>✦</h1>
                 </div>
-                <h1 className={styles.game_pair_one}>{gameWords[index].en}</h1>
-                <h1 className={styles.game_pair_two}>{gameWords[index].ru}</h1>
+                <h1 className={styles.game_pair_one}>{gameWords.en}</h1>
+                <h1 className={styles.game_pair_two}>{gameWords.ru}</h1>
             </div>
             <div className={styles.btn}>
                 
@@ -137,8 +142,8 @@ return(
                     <h1 className={styles.param_subTitle}>points</h1>
                 </div>
                 <div className={styles.param_two}>
-                    <h1 className={styles.param_topTitle}>40/</h1>
-                    <h1 className={styles.param_title}>30</h1>
+                    <h1 className={styles.param_topTitle}></h1>
+                    <h1 className={styles.param_title}>{num}</h1>
                     <h1 className={styles.param_subTitle}>words</h1>
                 </div>
             </div>

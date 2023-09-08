@@ -8,7 +8,7 @@ export type WordPair = {
   en:string,
   ru:string,
   right:boolean,
-  id:number,
+  i: number,
 }
 export type Word = {
   en:string,
@@ -50,41 +50,32 @@ const firebaseConfig = {
     
   }
   
-  export const getWord = async (coll:number)=>{
+  export async function* getWord(){
     
-    const words:WordPair[] = [];
-    for(let i = 0 ;i<coll;++i){
-      if(random.boolean()){
-        await get(child(dbRef, `words/${i}`)).then((snapshot:DataSnapshot) => {
-           words.push({
-            en: snapshot.val().en,
-            ru: snapshot.val().ru,
-            id:i,
-            right: true,
-          })
-          
-        })
-        
-      }
+    for(let inde = 0;inde<10;++inde){
+      
+      let i:number = random.int(0,4999);
+      const word:WordPair = await GetFromDB(`words/${i}`)
+      if(random.boolean())
+        yield {
+          en: word.en,
+          ru: word.ru,
+          right: true,
+          i: inde,
+        }
       else{
-        await get(child(dbRef, `words/${i}`)).then(async (first:DataSnapshot) => {
-          await get(child(dbRef, `words/${random.int(0, 4999)}`)).then((second:DataSnapshot) => {
-            words.push({
-              en: first.val().en,
-              ru: second.val().ru,
-              id:i,
-              right: false,
-            })
-          })
-
-        })
-        
-        
-
-      }  
-
+        let j = random.int(1,500);
+        j = (i-j>0) ?i-j :i+j;
+        let another:WordPair = await GetFromDB(`words/${j}`);
+        yield {
+          en: word.en,
+          ru: another.ru,
+          right: false,
+          i: inde,
+        }
+      
+      }
     }
-    return words;
     
     
   }

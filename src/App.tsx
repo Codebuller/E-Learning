@@ -4,6 +4,7 @@ import './App.css'
 import { PrivateRoutes, PublicRoutes } from './router/Router';
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react';
+import { Redirect } from 'react-router';
 function App() {
   
   const auth:boolean = useSelector((state:any)=>state.auth)
@@ -19,7 +20,10 @@ function App() {
 
   return ( 
     <>
-    <RouterProvider router={router}/>
+    <React.Fragment>
+      <RouterProvider router={router}/>
+      
+    </React.Fragment>
     </>
   )
 }

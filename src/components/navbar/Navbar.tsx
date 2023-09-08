@@ -4,6 +4,7 @@ import {endSession, isLoggedIn} from './../../helpers/session.ts'
 import { useDispatch } from "react-redux";
 import UILogin from "../../UI/login/UILogin.tsx";
 import UISignUp from "../../UI/signUp/UISignUp.tsx";
+import { Link } from "react-router-dom";
 const Navbar = () => {
     const dispatch = useDispatch();
     const [visMenu,setVisMenu] = useState<boolean>(true);
@@ -37,7 +38,7 @@ const Navbar = () => {
             <path d="M5.42462 5.85938L18.5754 19.0101" stroke="black" strokeWidth="1.4"/>
             <path d="M5.42462 19.1406L18.5754 5.98987" stroke="black" strokeWidth="1.4"/>
         </svg>
-        <h1 className={styles.navbar_text}>GlobalTalk</h1> 
+        <h1 className={styles.navbar_text}><Link to={'/'}>GlobalTalk</Link></h1> 
         {name!=' '
         ?<div className={styles.navbar_acount}>
             
@@ -58,15 +59,15 @@ const Navbar = () => {
         
         </div>
         <ul style={visMenu ? {display:'none'} : {display:'flex'}} className={styles.pop_up_menu}>
-            <li className={styles.menu_item}>Main</li>
+            <li onClick={()=>{setVisMenu(true)}} className={styles.menu_item}><Link to={'/'}>Main</Link></li>
             <li className={styles.menu_item}>Textbook</li>
             <li className={styles.menu_item}>Statistics</li>
-            <li className={styles.menu_item}>Sprint</li>
-            <li className={styles.menu_item}>Audio-call</li>
+            <li onClick={()=>{setVisMenu(true)}} className={styles.menu_item}><Link to={'/sprint'}>Sprint</Link></li>
+            <li onClick={()=>{setVisMenu(true)}} className={styles.menu_item}><Link to={'/audio'}>Audio-call</Link></li>
             {!isLoggedIn() &&
             <React.Fragment>
-            <li className={styles.menu_item}>Login</li>
-            <li className={styles.menu_item}>Registration</li>
+            <li onClick={()=>{setVisMenu(true)}} className={styles.menu_item}><Link to={'/login'}>Login</Link></li>
+            <li onClick={()=>{setVisMenu(true)}} className={styles.menu_item}><Link to={'/reg'}>Registration</Link></li>
             </React.Fragment>
         }
         </ul>
