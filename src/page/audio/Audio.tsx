@@ -57,7 +57,7 @@ const Audio = () => {
             varCont.current.childNodes[word.value.right].classList.add(`${styles.var_right}`);
         }
     }
-    let wordq = word.value.en.substring(0, word.value.en.indexOf("("))===''? word.value.en: word.value.en.substring(0, word.value.en.indexOf("("))
+    
 
 
     if(state === 0)
@@ -75,7 +75,7 @@ const Audio = () => {
         </div> 
     </div>
   )
-        
+  let wordq = word.value.en.substring(0, word.value.en.indexOf("("))===''? word.value.en: word.value.en.substring(0, word.value.en.indexOf("("))      
 
   if((state === 1 || state === 1.5) && (lives!==0 || state === 1.5))
   return (

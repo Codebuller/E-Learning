@@ -137,7 +137,7 @@ return(
                 <h1 className={styles.result_subtitle}>You did pretty good!</h1>
           
             <div className={styles.result_stat_gr}>
-                <UIIndicators part={40} text={['40/',num.toString(),'words']}  color={"#639B6D"}/>
+                <UIIndicators part={(num*10)/4} text={['40/',num.toString(),'words']}  color={"#639B6D"}/>
                 <UIIndicators part={65} text={['retrieved',score.toString(),'points']}  color={"#2B788B"}/>
             </div>
             <div onClick={()=>{resetGame()}} className={styles.again_gr}>
