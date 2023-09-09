@@ -1,0 +1,45 @@
+.first{
+    /* margin-top: -100px; */
+    color: var(--primaty-black, #000);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%; /* 19.6px */
+    letter-spacing: -0.56px;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 114px;
+    height: 114px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+.svg{
+    width: 114px;
+    height: 114px;
+    position: absolute;
+    margin: auto;
+
+}
+.second{
+    color: var(--primaty-black, #000);
+    font-family: Dela Gothic One;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%; /* 32px */
+    letter-spacing: -1.28px;
+}
+.third{
+    color: var(--primaty-grey-dark, #757575);
+font-family: Montserrat;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 140%; /* 22.4px */
+letter-spacing: 0.32px;
+margin-top: 4px;
+}

@@ -3,6 +3,7 @@ import styles from './Sprint.module.css'
 import { getWord} from '../../helpers/firebase.js'
 import LevelPicker from "../../UI/levelPicker/LevelPicker.js";
 import Spiner from "../../UI/spiner/UISpiner.js";
+import UIIndicators from "../../UI/indicators/UIIndicators.js";
 const Sprint = () => {
     const [state,setState] = useState<number>(0);
     const [level,setLevel] = useState('A1');
@@ -136,16 +137,8 @@ return(
                 <h1 className={styles.result_subtitle}>You did pretty good!</h1>
           
             <div className={styles.result_stat_gr}>
-                <div className={styles.param_one}>
-                    <h1 className={styles.param_topTitle}>retrieved</h1>
-                    <h1 className={styles.param_title}>{score}</h1>
-                    <h1 className={styles.param_subTitle}>points</h1>
-                </div>
-                <div className={styles.param_two}>
-                    <h1 className={styles.param_topTitle}></h1>
-                    <h1 className={styles.param_title}>{num}</h1>
-                    <h1 className={styles.param_subTitle}>words</h1>
-                </div>
+                <UIIndicators part={40} text={['40/',num.toString(),'words']}  color={"#639B6D"}/>
+                <UIIndicators part={65} text={['retrieved',score.toString(),'points']}  color={"#2B788B"}/>
             </div>
             <div onClick={()=>{resetGame()}} className={styles.again_gr}>
             <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">

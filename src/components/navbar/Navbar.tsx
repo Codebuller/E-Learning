@@ -73,7 +73,7 @@ const Navbar = () => {
         </ul>
         <ul style={visAcc ? {display:'none'} : {display:'flex'}} className={styles.nav_acc}>
         {!!isLoggedIn()
-        ?<li onClick={()=>{logOut()}} className={styles.nav_acc_item}>Выход</li>
+        ?<li onClick={()=>{setVisAcc(true);logOut(); }} className={styles.nav_acc_item}>Выход</li>
         : <React.Fragment>
         <li className={styles.nav_acc_item}><UILogin/></li>
         <li className={styles.nav_acc_item}><UISignUp/></li>

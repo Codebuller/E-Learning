@@ -1,6 +1,7 @@
 import React from "react"
 import styles from './HomePage.module.css'
 import { Link } from "react-router-dom";
+import UIIndicators from "../../UI/indicators/UIIndicators";
 const HomePage = () => {
         
         
@@ -8,8 +9,6 @@ const HomePage = () => {
   return (  
     <>   
         <div className={styles.mainView}>
-
-       
             <div className={styles.welcome}>
                 <h1 className={styles.welcome_uptitle}>E-COURSE PLATFORM</h1>
                 <h1 className={styles.welcome_title}>Learning and

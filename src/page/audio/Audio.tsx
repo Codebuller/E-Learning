@@ -49,10 +49,15 @@ const Audio = () => {
         varCont.current.childNodes.forEach((el:Element)=>{el.classList.remove(`${styles.var_wrong}`)})
         }
         startGame()
-        
-        
     }
-
+    const dontKnow = async () =>{
+        await setState(1.5);
+        setLives(lives - 1);
+        if(varCont.current){
+            varCont.current.childNodes[word.value.right].classList.add(`${styles.var_right}`);
+        }
+    }
+    let wordq = word.value.en.substring(0, word.value.en.indexOf("("))===''? word.value.en: word.value.en.substring(0, word.value.en.indexOf("("))
 
 
     if(state === 0)
@@ -70,8 +75,7 @@ const Audio = () => {
         </div> 
     </div>
   )
-
-
+        
 
   if((state === 1 || state === 1.5) && (lives!==0 || state === 1.5))
   return (
@@ -127,10 +131,10 @@ const Audio = () => {
             </div>
             }
             {state===1
-            ?<h1 className={styles.skip}>I don't know</h1>
+            ?<h1 onClick={()=>{dontKnow()}} className={styles.skip}>I don't know</h1>
             :<h1 onClick={()=>{next()}} className={styles.skip}>Next</h1>
             }
-            <audio autoPlay ref={player} src={`https://britlex.ru/mp3/${word.value.en}.mp3`}></audio>
+            <audio autoPlay ref={player} src={`https://britlex.ru/mp3/${wordq}.mp3`}></audio>
            
         </div>            
     </div>
