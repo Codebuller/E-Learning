@@ -1,7 +1,6 @@
 import React from "react"
 import styles from './HomePage.module.css'
 import { Link } from "react-router-dom";
-import UIIndicators from "../../UI/indicators/UIIndicators";
 const HomePage = () => {
         
         
