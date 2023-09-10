@@ -1,0 +1,17 @@
+.svg_play{
+    display: flex;
+width: 40px;
+height: 40px;
+padding: 4px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 4px;
+background: var(--primaty-grey-light, #F6F5F4);
+fill: #BABABA;
+}
+.playing{
+    border-radius: 4px;
+background: var(--primaty-cyan-dark, #2B788B);
+fill: white;
+}

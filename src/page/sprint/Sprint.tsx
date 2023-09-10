@@ -4,6 +4,7 @@ import { getWord} from '../../helpers/firebase.js'
 import LevelPicker from "../../UI/levelPicker/LevelPicker.js";
 import Spiner from "../../UI/spiner/UISpiner.js";
 import UIIndicators from "../../UI/indicators/UIIndicators.js";
+import Repeat from "../../components/repeat/Repeat.js";
 const Sprint = () => {
     const [state,setState] = useState<number>(0);
     const [level,setLevel] = useState('A1');
@@ -13,6 +14,7 @@ const Sprint = () => {
     const [gameWords,setGameWords] = useState<any>(null)
     const generator = getWord();
     const [num,setNum] = useState(0);
+    const [result,setResult] = useState<any>([[],[]])
     useEffect(()=>{
         const  fetch = async () =>{
            
@@ -32,6 +34,7 @@ const Sprint = () => {
         if(valid === gameWords.right){
             setScore(score+30)
             setNum(num + 1)
+            result[0].push({en:gameWords.en,ru:gameWords.i});
         }
             
         
@@ -43,6 +46,7 @@ const Sprint = () => {
                 blockRef.current.classList.remove(`${styles.invalid}`);          
             },500)
         }
+        result[1].push({en:gameWords.en,ru:gameWords.i});
             setLives(lives - 1)
         }
         next()
@@ -53,6 +57,7 @@ const Sprint = () => {
         setScore(0)
         setLives(3)
         setState(0)
+        setResult([[],[]])
     }
     
     
@@ -82,6 +87,7 @@ const Sprint = () => {
             }
             
         </div> 
+       
     </div>
       
    
@@ -129,6 +135,7 @@ const Sprint = () => {
 </div>
 )
 return(
+    <>
     <div className={styles.screen}>
          <div className={styles.result_screen}>
            
@@ -148,7 +155,10 @@ return(
             </div>
             <h1 className={styles.go_text}>Go to textbook</h1>
          </div>
+         
     </div>
+    <Repeat know={result[0]} noKnow={result[1]}/>
+    </>
 )
 };
 

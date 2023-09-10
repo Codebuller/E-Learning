@@ -8,7 +8,7 @@ export type WordPair = {
   en:string,
   ru:string,
   right:boolean,
-  i: number,
+  i: string,
 }
 export type Word = {
   en:string,
@@ -61,7 +61,7 @@ const firebaseConfig = {
           en: word.en,
           ru: word.ru,
           right: true,
-          i: inde,
+          i: word.ru,
         }
       else{
         let j = random.int(1,500);
@@ -71,7 +71,7 @@ const firebaseConfig = {
           en: word.en,
           ru: another.ru,
           right: false,
-          i: inde,
+          i: word.ru,
         }
       
       }
