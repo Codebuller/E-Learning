@@ -1,7 +1,9 @@
 import React, {useRef, useState, useEffect} from "react"
 import styles from './Audio.module.css'
 import LevelPicker from "../../UI/levelPicker/LevelPicker";
-import { audioGet } from "../../helpers/firebase";
+import { audioGet, putGameToDB } from "../../helpers/firebase";
+import Repeat from "../../components/repeat/Repeat";
+import UIIndicators from "../../UI/indicators/UIIndicators";
 const Audio = () => {
     const [level,setLevel] = useState<string>('B1');
     const [state,setState] = useState<number>(0);
@@ -10,18 +12,20 @@ const Audio = () => {
     const varCont = useRef<any>(null);
     const generator = audioGet();
     const player = useRef<HTMLAudioElement>(null);
-
+    const [result,setResult] = useState<any>([[],[]])
     useEffect(()=>{
         async function fetch(){
         setWord(await generator.next())
     }
+    
     fetch()
     }
     ,[])
-
+    
     const startGame = async () =>{
         setWord(await generator.next());
         setState(1);
+        
     }
     
     const validFn = async (answer:number) =>{
@@ -30,11 +34,23 @@ const Audio = () => {
             if(varCont.current)
             varCont.current.childNodes[answer].classList.add(`${styles.var_wrong}`)
             setLives(lives - 1);
+            result[1].push({en:word.value.en,ru:word.value.translate[word.value.right]});
+        }
+        else{
+            result[0].push({en:word.value.en,ru:word.value.translate[word.value.right]});
         }
         if(varCont.current){
+            
             varCont.current.childNodes[word.value.right].classList.add(`${styles.var_right}`);
         }
        
+
+    }
+    const reset = () =>{
+        setResult([[],[]]);
+        setLives(5);
+        setState(0)
+
 
     }
 
@@ -51,8 +67,13 @@ const Audio = () => {
         startGame()
     }
     const dontKnow = async () =>{
+        
+        result[1].push({en:word.value.en,ru:word.value.translate[word.value.right]});
         await setState(1.5);
-        setLives(lives - 1);
+        if(lives === 1)
+            putGameToDB({right:result[0].length,wrong:result[1].length,dataGame:Date.now(),series:5},true);
+        await setLives(lives - 1);
+       
         if(varCont.current){
             varCont.current.childNodes[word.value.right].classList.add(`${styles.var_right}`);
         }
@@ -136,8 +157,35 @@ const Audio = () => {
             }
             <audio autoPlay ref={player} src={`https://britlex.ru/mp3/${wordq}.mp3`}></audio>
            
-        </div>            
+        </div>  
+             
     </div>
+    )
+    return(
+        <>
+        <div className={styles.screen}>
+         <div className={styles.result_screen}>
+           
+                <img src="/images/11.png" alt="Sorry" />
+                <h1 className={styles.result_title}>Your Sprint</h1>
+                <h1 className={styles.result_subtitle}>You did pretty good!</h1>
+          
+            <div className={styles.result_stat_gr}>
+                <UIIndicators part={result[0].length/10*100} text={['',result[0].length.toString(),'words']}  color={"#639B6D"}/>
+                {/* <UIIndicators part={65} text={['retrieved','5','points']}  color={"#2B788B"}/> */}
+            </div>
+            <div onClick={()=>{reset()}}  className={styles.again_gr}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+                <path d="M8.54785 15C5.23785 15 2.54785 12.31 2.54785 9C2.54785 5.69 5.23785 3 8.54785 3V0L12.5479 4L8.54785 8V5C6.33785 5 4.54785 6.79 4.54785 9C4.54785 11.21 6.33785 13 8.54785 13C10.7579 13 12.5479 11.21 12.5479 9H14.5479C14.5479 12.31 11.8579 15 8.54785 15Z" fill="black"/>
+            </svg>  
+            <h1  className={styles.again_title}>Play it again</h1>
+            </div>
+            <h1 className={styles.go_text}>Go to textbook</h1>
+         </div>
+         
+    </div>
+    <Repeat know={result[0]} noKnow={result[1]}/>
+    </>
     )
 };     
 

@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { child, get, getDatabase, ref } from "firebase/database";
+import { child, get, getDatabase, ref, set } from "firebase/database";
 
 import random from "random";
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth} from "firebase/auth";
+import { getSession } from "./session";
 
 export type WordPair = {
   en:string,
@@ -34,7 +35,6 @@ const firebaseConfig = {
   export const app = initializeApp(firebaseConfig);
   export const database = getDatabase(app);
   export const createUser = async (email:string, password:string) => {
-    // set(ref(database,user))
     return createUserWithEmailAndPassword(getAuth(app), email, password);
     
   }
@@ -103,6 +103,31 @@ const firebaseConfig = {
       
     }
     
+  }
+  interface Game {
+    right:number,
+    wrong:number,
+    dataGame:number,
+    series:number
+  }
+
+  export const putGameToDB = (game:Game,sprint:boolean) =>{
+    if(sprint){
+      try{set(ref(database, `users/${getSession().UID}/sprint/${game.dataGame.toString()}`), game
+      );
+    }
+    catch(er:any){
+      throw er;
+    }
+}
+else{
+  try{set(ref(database, `users/${getSession().UID}/audio/${Date.now().toString()}`), game
+  );
+}
+catch(er:any){
+  throw er;
+}
+}
   }
   
   //logic for adding words to db

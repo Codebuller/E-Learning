@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import styles from './Sprint.module.css'
-import { getWord} from '../../helpers/firebase.js'
+import { getWord, putGameToDB} from '../../helpers/firebase.js'
 import LevelPicker from "../../UI/levelPicker/LevelPicker.js";
 import Spiner from "../../UI/spiner/UISpiner.js";
 import UIIndicators from "../../UI/indicators/UIIndicators.js";
@@ -47,7 +47,10 @@ const Sprint = () => {
             },500)
         }
         result[1].push({en:gameWords.en,ru:gameWords.i});
+           
             setLives(lives - 1)
+            if(lives === 1)
+            putGameToDB({right:result[0].length,wrong:result[1].length,dataGame:Date.now(),series:5},true);
         }
         next()
         

@@ -1,0 +1,165 @@
+.pick_inteval{
+    color: var(--primaty-grey-dark, #757575);
+font-family: Dela Gothic One;
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: 100%; /* 18px */
+letter-spacing: -0.72px;
+}
+.picked_inteval{
+    color: var(--primaty-black, #000);
+    text-decoration: underline;
+}
+.interval{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.screen{
+   
+    width: 100vw;
+    flex-direction: column;
+    display: flex;
+}
+.main_container{
+    display: flex;
+    width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+padding: 20px;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 20px;
+align-self: stretch;
+border-radius: 14px;
+background: #FFF;
+
+/* Shadow 2 */
+box-shadow: 0px 22.898128509521484px 45.79625701904297px -11.449064254760742px rgba(52, 41, 39, 0.08);
+}
+.title{
+    color: var(--primaty-black, #000);
+text-align: center;
+font-family: Dela Gothic One;
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: 100%; /* 24px */
+letter-spacing: -0.96px; 
+margin-bottom: 8px;
+}
+.sub_title{
+    color: var(--primaty-grey-dark, #757575);
+text-align: center;
+font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 600;
+line-height: 140%; /* 19.6px */
+letter-spacing: -0.56px; 
+}
+
+.indicator_num{
+    color: #000;
+font-family: Dela Gothic One;
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: 100%; /* 24px */
+letter-spacing: -0.48px;
+}
+.indicator_num_another{
+color: #2B788B;
+font-family: Dela Gothic One;
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: 100%;
+letter-spacing: -0.48px;
+}
+.indicator_top{
+    display: flex;
+}
+.indicator{
+    display: flex;
+    gap: 3px;
+    flex-direction: column;
+    align-items: center;
+}
+.indicator_buttom{
+    color: #585858;
+font-family: Montserrat;
+font-size: 12px;
+font-style: normal;
+font-weight: 600;
+line-height: 140%; /* 16.8px */
+letter-spacing: -0.48px;
+}
+.indicators{
+    display: flex;
+    gap: 40px;
+}
+.game_container{
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+}
+.game_title{
+    gap: 8px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+}
+.game_title_text{
+    color: var(--primaty-black, #000);
+font-family: Dela Gothic One;
+font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: 100%; /* 20px */
+letter-spacing: -0.8px;
+white-space: nowrap;
+}
+.game_title_type{
+    border-radius: 6px;
+background: var(--primaty-cyan-light, #C3DCE3);
+display: flex;
+padding: 4px 8px;
+align-items: center;
+gap: 10px;
+color: var(--primaty-cyan-dark, #2B788B);
+font-family: Montserrat;
+font-size: 10px;
+font-style: normal;
+font-weight: 600;
+line-height: 140%; /* 14px */
+letter-spacing: -0.4px;
+white-space: nowrap;
+}
+.right_stat_indicators{
+    display: flex;
+}
+.right_stat_indicator{
+    color: var(--primaty-black, #000);
+font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 700;
+line-height: 100%; /* 14px */
+letter-spacing: -0.56px;
+}
+.right_stat_indicator_text{
+    color: var(--primaty-grey-dark, #757575);
+font-family: Montserrat;
+font-size: 12px;
+font-style: normal;
+font-weight: 600;
+line-height: 140%;
+letter-spacing: -0.48px;
+}

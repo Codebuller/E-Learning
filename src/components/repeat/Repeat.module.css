@@ -24,7 +24,6 @@ box-shadow: 0px 22.898128509521484px 45.79625701904297px -11.449064254760742px r
     gap: 10px;
     align-self: flex-start;
     margin-bottom: 20px;
-    margin-top: 40px;
 }
 .title_text{
     color: var(--primaty-black, #000);
@@ -72,11 +71,11 @@ letter-spacing: -0.4px;
     gap: 6px;
    
     width: 100%;
-    
+    margin-bottom: 40px;
     overflow-y: auto;
    
-    max-width: 400px; 
-    height: 224px;
+    
+    max-height: 224px;
 }
 .word{
     

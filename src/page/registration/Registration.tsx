@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 import styles from './Registration.module.css'
 import {createUser} from '../../helpers/firebase.js'
-import {startSession} from '../../helpers/session.js'
+import { startSession} from '../../helpers/session.js'
 import Spiner from "../../UI/spiner/UISpiner.js";
 import { useNavigate } from "react-router-dom";
 import {useDispatch } from 'react-redux'

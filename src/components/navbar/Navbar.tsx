@@ -61,7 +61,7 @@ const Navbar = () => {
         <ul style={visMenu ? {display:'none'} : {display:'flex'}} className={styles.pop_up_menu}>
             <li onClick={()=>{setVisMenu(true)}} className={styles.menu_item}><Link to={'/'}>Main</Link></li>
             <li className={styles.menu_item}>Textbook</li>
-            <li className={styles.menu_item}>Statistics</li>
+            <li onClick={()=>{setVisMenu(true)}} className={styles.menu_item}><Link to={'/statistic'}>Statistics</Link></li>
             <li onClick={()=>{setVisMenu(true)}} className={styles.menu_item}><Link to={'/sprint'}>Sprint</Link></li>
             <li onClick={()=>{setVisMenu(true)}} className={styles.menu_item}><Link to={'/audio'}>Audio-call</Link></li>
             {!isLoggedIn() &&

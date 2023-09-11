@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import styles from './Login.module.css'
-import {signInUser} from '../../helpers/firebase.js'
+import { signInUser} from '../../helpers/firebase.js'
 import { startSession } from "../../helpers/session.js";
 import Spiner from "../../UI/spiner/UISpiner.js";
 import { useNavigate } from "react-router-dom";
@@ -30,6 +30,7 @@ const Login = () => {
       throw new Error('Name consist of minimum 6 letter')
       let response:any = (await signInUser(email,password)).user;
       startSession(response ,'ivan');//Получение из бд должно быть
+      
       setWaiting(true)
       dispatch({type:'LOGIN'})
       nav('/')
