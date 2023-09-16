@@ -7,7 +7,7 @@ const Footer = () => {
         <ul className={styles.links}>
             <li className={styles.link}><Link to={'/'}>Home</Link></li>
             <li className={styles.link}>Textbook</li>
-            <li className={styles.link}>Statistics</li>
+            <li className={styles.link}><Link to={'/statistic'}>Statistics</Link></li>
             <li className={styles.link}><Link to={'/sprint'}>Sprint</Link></li>
             <li className={styles.link}><Link to={'/audio'}>Audio-call</Link></li>
             <li className={styles.link}>Ivan</li>

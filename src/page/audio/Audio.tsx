@@ -71,7 +71,7 @@ const Audio = () => {
         result[1].push({en:word.value.en,ru:word.value.translate[word.value.right]});
         await setState(1.5);
         if(lives === 1)
-            putGameToDB({right:result[0].length,wrong:result[1].length,dataGame:Date.now(),series:5},true);
+        putGameToDB({right:result[0].length,wrong:result[1].length,dataGame:Date.now(),series:5},false);
         await setLives(lives - 1);
        
         if(varCont.current){

@@ -112,7 +112,7 @@ const firebaseConfig = {
   }
 
   export const putGameToDB = (game:Game,sprint:boolean) =>{
-    if(sprint){
+    if(!!sprint){
       try{set(ref(database, `users/${getSession().UID}/sprint/${game.dataGame.toString()}`), game
       );
     }
@@ -154,3 +154,55 @@ catch(er:any){
 
   //   }
   // })
+export const restructDataUserAll = async () =>{
+  const allGames = await GetFromDB(`users/${getSession().UID}/`);
+  let sprintWords:number = 0,sprintCorrect:number = 0,sprintSeries:number = 0;
+  let games = allGames['sprint']
+    for (let key in games) {
+    sprintWords+=games[key].right;
+    sprintCorrect= sprintCorrect!==0 ? (sprintCorrect+games[key].right/(games[key].wrong+games[key].right))/2 : games[key].right/(games[key].wrong+games[key].right);
+    sprintSeries = Math.max(sprintSeries,games[key].series);
+    }
+    
+    sprintCorrect = Math.floor(sprintCorrect*100);
+  games = allGames['audio']
+  let audioWords:number = 0,audioCorrect:number = 0,audioSeries:number = 0;
+  for (let key in games) {
+    audioWords+=games[key].right;
+    audioCorrect= audioCorrect!==0 ? (audioCorrect+games[key].right/(games[key].wrong+games[key].right))/2 : games[key].right/(games[key].wrong+games[key].right);
+    audioSeries = Math.max(audioSeries,games[key].series);
+    }
+    
+    audioCorrect = Math.floor(audioCorrect*100);
+
+  return {sprint:{words:sprintWords,correct:sprintCorrect,series:sprintSeries},audio:{words:audioWords,correct:audioCorrect,series:audioSeries}};
+}
+export const restructDataUserDay = async () =>{
+  const allGames = await GetFromDB(`users/${getSession().UID}/`);
+
+  let sprintWords:number = 0,sprintCorrect:number = 0,sprintSeries:number = 0;
+  let games = allGames['sprint']
+    for (let key in games) {
+      if(parseInt(key)/1000 + 86400 <  (new Date().getTime()/1000))
+        continue;
+      sprintWords+=games[key].right;
+      sprintCorrect= sprintCorrect!==0 ? (sprintCorrect+games[key].right/(games[key].wrong+games[key].right))/2 : games[key].right/(games[key].wrong+games[key].right);
+      sprintSeries = Math.max(sprintSeries,games[key].series);
+    }
+    
+    sprintCorrect = Math.floor(sprintCorrect*100);
+  games = allGames['audio']
+  let audioWords:number = 0,audioCorrect:number = 0,audioSeries:number = 0;
+  for (let key in games) {
+      if(parseInt(key)/1000 + 86400 <  (new Date().getTime()/1000))
+        continue;
+      audioWords+=games[key].right;
+      audioCorrect= audioCorrect!==0 ? (audioCorrect+games[key].right/(games[key].wrong+games[key].right))/2 : games[key].right/(games[key].wrong+games[key].right);
+      audioSeries = Math.max(audioSeries,games[key].series);
+    }
+    
+    audioCorrect = Math.floor(audioCorrect*100);
+
+  return {sprint:{words:sprintWords,correct:sprintCorrect,series:sprintSeries},audio:{words:audioWords,correct:audioCorrect,series:audioSeries}};
+}
+

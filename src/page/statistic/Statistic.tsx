@@ -1,14 +1,42 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styles from './Statistic.module.css'
 import UIChart from "../../UI/chart/UIChart";
+import { restructDataUserAll,restructDataUserDay } from "../../helpers/firebase";
+import Spiner from "../../UI/spiner/UISpiner";
+// type GameIndicators = {
+//     words:number,
+//     correct:number,
+//     series:number
+// }
 const Stastic = () => {
     const [interval,setInterval] = useState(true)
+    const [sprint,setSprint] = useState<any>();
+    const [audio,setAudio] = useState<any>()
+    useEffect(()=>{
+        const fetch = async () =>{
+            setAudio(undefined);
+            setSprint(undefined);
+            let data
+            if(interval)
+                data = await restructDataUserAll()
+            else 
+                data = await restructDataUserDay()
+            setAudio(data.audio);
+            setSprint(data.sprint);
+        }
+        fetch();
+    },[interval])
+   
+   
   return (
     <>
     <div className={styles.interval}>
     <h1 onClick={()=>setInterval(true)} className={interval ?`${styles.pick_inteval} ${styles.picked_inteval}`:`${styles.pick_inteval}`}>For the day</h1>
     <h1 onClick={()=>setInterval(false)} className={interval ?`${styles.pick_inteval}`:`${styles.pick_inteval} ${styles.picked_inteval}`}>For all the time</h1>
     </div>
+    {(sprint===undefined && audio===undefined) ?
+    <Spiner/>
+    :
     <div className={styles.screen}>
         <div className={styles.main_container}>
             <img src="/images/9.png" alt="Sorry" />
@@ -17,7 +45,7 @@ const Stastic = () => {
             <div className={styles.indicators}>
                 <div className={styles.indicator} >
                     <div className={styles.indicator_top}>
-                        <h1 className={styles.indicator_num}>0</h1>
+                        <h1 className={styles.indicator_num}>{audio.words+sprint.words}</h1>
                         <span className={styles.indicator_num_another}>+</span>
                     </div>
                     <h1 className={styles.indicator_buttom}>words studied</h1>
@@ -27,7 +55,7 @@ const Stastic = () => {
                 </svg>
                 <div className={styles.indicator} >
                     <div className={styles.indicator_top}>
-                        <h1 className={styles.indicator_num}>0</h1>
+                        <h1 className={styles.indicator_num}>{(audio.correct+sprint.correct)/2}</h1>
                         <span className={styles.indicator_num_another}>%</span>
                     </div>
                     <h1 className={styles.indicator_buttom}>correct answers </h1>
@@ -41,15 +69,15 @@ const Stastic = () => {
                         <h1 className={styles.game_title_type}>speed task</h1>
                     </div>
                     <div className={styles.right_stat_indicators}>
-                        <h1 className={styles.right_stat_indicator}>0</h1>
+                        <h1 className={styles.right_stat_indicator}>{sprint.words}</h1>
                         <h1 className={styles.right_stat_indicator_text}> words studied</h1>
                     </div>
                     <div className={styles.right_stat_indicators}>
-                        <h1 className={styles.right_stat_indicator}>0%</h1>
+                        <h1 className={styles.right_stat_indicator}>{sprint.correct+'%'}</h1>
                         <h1 className={styles.right_stat_indicator_text}> correct answers</h1>
                     </div>
                     <div className={styles.right_stat_indicators}>
-                        <h1 className={styles.right_stat_indicator}>0</h1>
+                        <h1 className={styles.right_stat_indicator}>{sprint.series}</h1>
                         <h1 className={styles.right_stat_indicator_text}> best series of correct answers</h1>
                     </div>
                     </div>
@@ -62,15 +90,15 @@ const Stastic = () => {
                         <h1 className={styles.game_title_type}>audition task</h1>
                     </div>
                     <div className={styles.right_stat_indicators}>
-                        <h1 className={styles.right_stat_indicator}>0</h1>
+                        <h1 className={styles.right_stat_indicator}>{audio.words}</h1>
                         <h1 className={styles.right_stat_indicator_text}> words studied</h1>
                     </div>
                     <div className={styles.right_stat_indicators}>
-                        <h1 className={styles.right_stat_indicator}>0%</h1>
+                        <h1 className={styles.right_stat_indicator}>{audio.correct+'%'}</h1>
                         <h1 className={styles.right_stat_indicator_text}> correct answers</h1>
                     </div>
                     <div className={styles.right_stat_indicators}>
-                        <h1 className={styles.right_stat_indicator}>0</h1>
+                        <h1 className={styles.right_stat_indicator}>{audio.series}</h1>
                         <h1 className={styles.right_stat_indicator_text}> best series of correct answers</h1>
                     </div>
                     </div>
@@ -79,6 +107,7 @@ const Stastic = () => {
         </div>
         <UIChart/>
     </div>
+}
    
     </>
   )

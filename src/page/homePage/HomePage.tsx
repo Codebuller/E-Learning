@@ -77,7 +77,7 @@ const HomePage = () => {
                     <h1 className={styles.stat_title}>Watch your progress every day</h1>
                     <h1 className={styles.stat_subtitle}>Save statistics on your achievements, words learned, and mistakes</h1>
                     <button className={styles.stat_btn}>
-                        <h1 className={styles.stat_btn_text}>Statistics →</h1>
+                        <h1 className={styles.stat_btn_text}><Link to={'/statistic'}>Statistics →</Link></h1>
                     </button>
                 </div> 
 

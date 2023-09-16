@@ -54,10 +54,10 @@ background: var(--primaty-cyan-light, #C3DCE3);
 }
 .pop_up_menu{
     
-	background: var(--Grey-3, #F4F4F2);
+	
 	position:  fixed;
     flex-direction: column;
-   
+    background-color: #F6F5F4;
 	left: 0px;
 	right: 0px;
 	top: 0px;
