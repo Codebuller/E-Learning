@@ -10,9 +10,7 @@ const Footer = () => {
             <li className={styles.link}><Link to={'/statistic'}>Statistics</Link></li>
             <li className={styles.link}><Link to={'/sprint'}>Sprint</Link></li>
             <li className={styles.link}><Link to={'/audio'}>Audio-call</Link></li>
-            <li className={styles.link}>Ivan</li>
-            <li className={styles.link}>The</li>
-            <li className={styles.link}>Best</li>
+            
         </ul>
         <svg className={styles.br} xmlns="http://www.w3.org/2000/svg" width="335" height="2" viewBox="0 0 335 2" fill="none">
             <path d="M0 1L335 0.999985" stroke="#E0E0E0" strokeWidth="1.20466"/>

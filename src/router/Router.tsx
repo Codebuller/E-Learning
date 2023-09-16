@@ -8,9 +8,10 @@ import Navbar from '../components/navbar/Navbar.tsx';
 import Footer from '../components/footer/Footer.tsx';
 import Audio from '../page/audio/Audio.tsx';
 import Stastic from '../page/statistic/Statistic.tsx';
+import About from '../page/about/About.tsx';
 export const PrivateRoutes = [
            { path:'/about',
-            element: <HomePage/>,
+            element: (<React.Fragment><Navbar/> <About/> <Footer/></React.Fragment>),
         },
         { path:'/sprint',
             element: (<React.Fragment><Navbar/><Sprint/><Footer/></React.Fragment>),
@@ -36,6 +37,9 @@ export const PublicRoutes =  [
     { path:'/',
      element: <React.Fragment><Navbar/> <HomePage/> <Footer/></React.Fragment>,
  },
+ { path:'/about',
+            element: (<React.Fragment><Navbar/> <About/> <Footer/></React.Fragment>),
+        },
  { path:'/login',
      element: <React.Fragment><Login/><Footer/></React.Fragment>,
  },

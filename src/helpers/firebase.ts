@@ -45,7 +45,7 @@ const firebaseConfig = {
   const dbRef =  ref(database)
 
   const GetFromDB = async ( request:string ):Promise<any>  =>{
-    return (await get(child(dbRef, request))).val()
+    return (await get(child(dbRef, request))).val() ?? null
        
     
   }
@@ -156,6 +156,8 @@ catch(er:any){
   // })
 export const restructDataUserAll = async () =>{
   const allGames = await GetFromDB(`users/${getSession().UID}/`);
+  if(allGames === null)
+  return {sprint:{words:0,correct:0,series:0},audio:{words:0,correct:0,series:0}};
   let sprintWords:number = 0,sprintCorrect:number = 0,sprintSeries:number = 0;
   let games = allGames['sprint']
     for (let key in games) {
@@ -179,7 +181,8 @@ export const restructDataUserAll = async () =>{
 }
 export const restructDataUserDay = async () =>{
   const allGames = await GetFromDB(`users/${getSession().UID}/`);
-
+  if(allGames === null)
+  return {sprint:{words:0,correct:0,series:0},audio:{words:0,correct:0,series:0}};
   let sprintWords:number = 0,sprintCorrect:number = 0,sprintSeries:number = 0;
   let games = allGames['sprint']
     for (let key in games) {

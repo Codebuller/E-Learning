@@ -6,12 +6,12 @@ import UILogin from "../../UI/login/UILogin.tsx";
 import UISignUp from "../../UI/signUp/UISignUp.tsx";
 import { Link } from "react-router-dom";
 const Navbar = () => {
-    const dispatch = useDispatch();
+    
     const [visMenu,setVisMenu] = useState<boolean>(true);
     const [visAcc,setVisAcc] = useState<boolean>(true);
     const name:string = sessionStorage.getItem('name') ?? ' ' ;
     const logOut = () =>{
-        dispatch({type:'LOGOUT'})
+        useDispatch()({type:'LOGOUT'})
         endSession()
         setVisMenu(!visMenu);
     }

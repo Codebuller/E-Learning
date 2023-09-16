@@ -16,9 +16,9 @@ const HomePage = () => {
                 <h1 className={styles.welcome_subtitle}>Practice and learn new things with the platform.</h1>
             </div>
 
-            <a className={styles.aboutBtn}>
-                <h1 className={styles.aboutBtn_text}>About platform</h1>
-            </a>
+            <div className={styles.aboutBtn}>
+                <h1 className={styles.aboutBtn_text}><Link to={'/about'}>About platform</Link></h1>
+            </div>
             <div className={styles.numbers}>
                 <div className={styles.numbers_flex}>
                 <div className={styles.numbers_item}>
@@ -76,9 +76,9 @@ const HomePage = () => {
                 <img className={styles.center_images}  src="/images/8.png" alt="Doesn't work" />    
                     <h1 className={styles.stat_title}>Watch your progress every day</h1>
                     <h1 className={styles.stat_subtitle}>Save statistics on your achievements, words learned, and mistakes</h1>
-                    <button className={styles.stat_btn}>
-                        <h1 className={styles.stat_btn_text}><Link to={'/statistic'}>Statistics →</Link></h1>
-                    </button>
+                    
+                   <h1 className={styles.stat_btn}><Link to={'/statistic'}>Statistics →</Link></h1>
+                    
                 </div> 
 
             </div>
