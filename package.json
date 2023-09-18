@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/recharts": "^1.8.24",
     "@types/styled-components": "^5.1.26",
     "firebase": "^10.3.0",
     "random": "^4.1.0",

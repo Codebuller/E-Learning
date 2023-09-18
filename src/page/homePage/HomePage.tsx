@@ -61,16 +61,7 @@ const HomePage = () => {
                         </Link>
                 </div>
             </div>
-            <div className={styles.textBookScreen}>
-                <div className={styles.book}>
-                <h1 className={styles.book_title}>Increase your vocabulary</h1>
-                <h1 className={styles.book_subtitle}>Traditional and new effective approaches to word study</h1>
-                <button className={styles.book_btn}>
-                    <h1 className={styles.book_btn_text} >Textbook →</h1>
-                </button>
-                <img className={styles.center_images} src="/images/7.png" alt="Doesn't work" />
-                </div>
-            </div>
+            
             <div className={styles.statisticScreen}>
                 <div className={styles.stat}>
                 <img className={styles.center_images}  src="/images/8.png" alt="Doesn't work" />    

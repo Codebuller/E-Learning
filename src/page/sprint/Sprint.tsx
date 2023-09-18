@@ -5,16 +5,23 @@ import LevelPicker from "../../UI/levelPicker/LevelPicker.js";
 import Spiner from "../../UI/spiner/UISpiner.js";
 import UIIndicators from "../../UI/indicators/UIIndicators.js";
 import Repeat from "../../components/repeat/Repeat.js";
+import { useMergeState } from "../../hooks/useMergeState.js";
 const Sprint = () => {
-    const [state,setState] = useState<number>(0);
-    const [level,setLevel] = useState('A1');
-    const [score,setScore] = useState<number>(0);
     const blockRef = useRef<HTMLDivElement>(null);
     const [load,setLoad] = useState(true)
     const [gameWords,setGameWords] = useState<any>(null)
     const generator = getWord();
-    const [num,setNum] = useState(0);
-    const [result,setResult] = useState<any>([[],[]])
+    const [gameStates,setGameStates] = useMergeState({
+        num:0,
+        score:0,
+        state:0,
+        result:[[],[]],
+        lives:3,
+        series:0,
+        bestSeries:0,
+    })
+    const {num, result, score, state, lives, series, bestSeries} = gameStates;
+    
     useEffect(()=>{
         const  fetch = async () =>{
            
@@ -28,12 +35,12 @@ const Sprint = () => {
     const next = async () =>{
         setGameWords((await generator.next()).value);
     }
-    const [lives,setLives] = useState<number>(3)
+    
     const validFn = (valid:boolean):void =>{
         
         if(valid === gameWords.right){
-            setScore(score+30)
-            setNum(num + 1)
+            setGameStates({score:series>5 ?score+60 : score+30,num:num+1,series:series+1})
+          
             result[0].push({en:gameWords.en,ru:gameWords.i});
         }
             
@@ -47,28 +54,30 @@ const Sprint = () => {
             },500)
         }
         result[1].push({en:gameWords.en,ru:gameWords.i});
-           
-            setLives(lives - 1)
-            if(lives === 1)
-            putGameToDB({right:result[0].length,wrong:result[1].length,dataGame:Date.now(),series:5},true);
+         
+        if(lives === 1)
+        putGameToDB({right:result[0].length,wrong:result[1].length,dataGame:Date.now(),series:Math.max(series,bestSeries)},true);
+
+        setGameStates({lives:lives-1,bestSeries:Math.max(series,bestSeries),series:0})
+         
         }
         next()
         
     }
     const resetGame = () =>{
         
-        setScore(0)
-        setLives(3)
-        setState(0)
-        setResult([[],[]])
+        setGameStates({score:0,lives:3,state:0,series:0,bestSeries:0,result:[[],[]],num:0})
+      
     }
     
     
     const startGame = () =>{
         setTimeout(()=>{
-            setState(2);
+           
+            setGameStates({state:2})
         },100000)
-        setState(1)
+        
+        setGameStates({state:1})
         
     }
     
@@ -83,7 +92,7 @@ const Sprint = () => {
                 <h1 className={styles.sprint_main_teg}>speed task</h1>
             </div>
             <h1 className={styles.subtitle}>Trains the skill of fast translation. You have to choose if the translation corresponds to the suggested word.</h1>
-            <LevelPicker rePick={setLevel} state={level}/>
+            <LevelPicker/>
             {load
             ? <Spiner/>
             : <button onClick={()=>{startGame()}} className={styles.start}>Get started</button>
@@ -105,14 +114,14 @@ const Sprint = () => {
 
             <div className={styles.scores}>
                 <div className={styles.scores_gr}>
-                    <h1 className={styles.scores_gr_title}>x2</h1>
+                    <h1 key={series>5 ? "x2": "x1"} className={`${styles.scores_gr_title} ${styles.anim_text}`}>{series>5 ? "x2": "x1"}</h1>
                     <h1 className={styles.scores_gr_subtitle}>multiplier</h1>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="2" height="34" viewBox="0 0 2 34" fill="none">
                     <path d="M1.40222 0.154724V33.0673" stroke="#E0E0E0" strokeWidth="0.822815"/>
                 </svg>
                 <div className={styles.scores_gr}>
-                    <h1 className={`${styles.scores_gr_title} ${styles.anim_text}`}>{score}</h1>
+                    <ShakingText text={score}/>
                     <h1 className={styles.scores_gr_subtitle}>points</h1>
                 </div>
             </div> 
@@ -166,3 +175,7 @@ return(
 };
 
 export default Sprint;
+
+const ShakingText = ({text}:{text:string}) =>{
+    return <h1 key={text} className={`${styles.scores_gr_title} ${styles.anim_text}`}>{text}</h1>
+}

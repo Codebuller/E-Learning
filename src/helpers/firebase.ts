@@ -209,3 +209,76 @@ export const restructDataUserDay = async () =>{
   return {sprint:{words:sprintWords,correct:sprintCorrect,series:sprintSeries},audio:{words:audioWords,correct:audioCorrect,series:audioSeries}};
 }
 
+export const getDataForCharts = async () =>{
+  const data = await  GetFromDB(`users/${getSession().UID}/`)
+  const sprintKeys = Object.keys(data.sprint).sort()
+  const audioKeys = Object.keys(data.audio).sort()
+  const result  = [];
+  
+  
+  let start = parseInt(sprintKeys[0]) - parseInt(sprintKeys[0])%86400000
+  let end =  start + 86400000 ;
+  let endDay:number =  Math.max(Math.ceil(((parseInt(sprintKeys[sprintKeys.length - 1]) - parseInt(sprintKeys[0])  ) / 86400000)),
+  Math.ceil (  (parseInt(audioKeys[audioKeys.length - 1]) -  (parseInt(audioKeys[0])    )) / 86400000))
+
+  let i = 0;
+  for(;i<=endDay;++i)
+  result[i] = {name:(i+1).toString()+' day',sprint:0,audio:0}
+ 
+
+  i = 0;
+  let nowItem,index = 0;
+  let nowAverage = 0;
+  
+  while(index!==sprintKeys.length -1 ){
+   
+    nowItem = data.sprint[sprintKeys[index]]
+    if(parseInt(sprintKeys[index])>=start && parseInt(sprintKeys[index])<=end){
+      nowAverage = nowAverage===0 ? (nowItem.right/(nowItem.right+nowItem.wrong)) : (nowAverage+(nowItem.right/(nowItem.right+nowItem.wrong)))/2;
+      index+=1;
+    }
+    else{
+      result[i].sprint = Math.floor(nowAverage*100);
+      nowAverage = 0;
+      i+=1;
+      start+=86400000;
+      end+=86400000;
+    }
+  
+  
+  }
+ 
+  if(nowAverage!==0)
+  result[i].sprint = Math.floor(nowAverage*100);
+ 
+  i = 0;
+  index = 0;
+  start = parseInt(audioKeys[0]) - parseInt(audioKeys[0])%86400000 ;
+  end =  start + 86400000 ;
+  while(index!==audioKeys.length -1 ){
+    nowItem = data.audio[audioKeys[index]]
+    if(parseInt(audioKeys[index])>=start && parseInt(audioKeys[index])<=end){
+      nowAverage = nowAverage===0 ? (nowItem.right/(nowItem.right+nowItem.wrong)) : (nowAverage+(nowItem.right/(nowItem.right+nowItem.wrong)))/2;
+      index+=1;
+    }
+    else{
+      result[i].audio = Math.floor(nowAverage*100);
+      nowAverage = 0;
+      i+=1;
+      start+=86400000;
+      end+=86400000;
+    }
+    
+  }
+  if(nowAverage!==0)
+  result[i].audio = Math.floor(nowAverage*100);
+  for(let i = 1;i<=endDay;++i){
+    if(result[i].audio == 0)
+      result[i].audio = result[i-1].audio;
+    if(result[i].sprint == 0)
+      result[i].sprint = result[i-1].sprint;
+  }
+  return result;
+
+
+}

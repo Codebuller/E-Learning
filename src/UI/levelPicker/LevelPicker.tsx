@@ -1,8 +1,10 @@
-import React from "react"
+import React, {useState} from "react"
 import styles from './LevelPicker.module.css'
-const LevelPicker = ({rePick,state}:{rePick:Function,state:string}) => {
+const LevelPicker = () => {
+  const [state,rePick] = useState<string>('B2')
   return (
     <>
+    
 
     <h1 className={styles.choose_title}>Choose a level:</h1>
             <div className={styles.choose}> 

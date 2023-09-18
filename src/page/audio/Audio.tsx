@@ -1,42 +1,54 @@
-import React, {useRef, useState, useEffect} from "react"
+import React, {useRef, useEffect} from "react"
 import styles from './Audio.module.css'
 import LevelPicker from "../../UI/levelPicker/LevelPicker";
 import { audioGet, putGameToDB } from "../../helpers/firebase";
 import Repeat from "../../components/repeat/Repeat";
 import UIIndicators from "../../UI/indicators/UIIndicators";
+import { useMergeState } from "../../hooks/useMergeState";
 const Audio = () => {
-    const [level,setLevel] = useState<string>('B1');
-    const [state,setState] = useState<number>(0);
-    const [lives,setLives] = useState<number>(5);
-    const [word,setWord] = useState<any>(null);
+    
+   
+ 
     const varCont = useRef<any>(null);
     const generator = audioGet();
     const player = useRef<HTMLAudioElement>(null);
-    const [result,setResult] = useState<any>([[],[]])
+    
+    const [gameStates,setGameStates] = useMergeState({
+        state:0,
+        word:{},
+        result:[[],[]],
+        lives:5,
+        series:0,
+        bestSeries:0,
+    })
+    const { result, state, lives, series, bestSeries, word} = gameStates;
     useEffect(()=>{
         async function fetch(){
-        setWord(await generator.next())
+        setGameStates({word:await generator.next()})
     }
     
     fetch()
     }
     ,[])
-    
+
     const startGame = async () =>{
-        setWord(await generator.next());
-        setState(1);
+        setGameStates({word:await generator.next(),state:1})
+        
         
     }
     
     const validFn = async (answer:number) =>{
-        await setState(1.5)
+      
         if(answer !== word.value.right){
+            await setGameStates({lives:lives-1,state:1.5,series:0,bestSeries:Math.max(bestSeries,series)})
             if(varCont.current)
             varCont.current.childNodes[answer].classList.add(`${styles.var_wrong}`)
-            setLives(lives - 1);
+       
+           
             result[1].push({en:word.value.en,ru:word.value.translate[word.value.right]});
         }
         else{
+            setGameStates({state:1.5})
             result[0].push({en:word.value.en,ru:word.value.translate[word.value.right]});
         }
         if(varCont.current){
@@ -46,12 +58,8 @@ const Audio = () => {
        
 
     }
-    const reset = () =>{
-        setResult([[],[]]);
-        setLives(5);
-        setState(0)
-
-
+    const reset = async () =>{
+        setGameStates({result:[[],[]],lives:5,state:0,word:await generator.next(),series:0,bestSeries:0})
     }
 
     const play = () =>{
@@ -69,10 +77,10 @@ const Audio = () => {
     const dontKnow = async () =>{
         
         result[1].push({en:word.value.en,ru:word.value.translate[word.value.right]});
-        await setState(1.5);
+        
         if(lives === 1)
-        putGameToDB({right:result[0].length,wrong:result[1].length,dataGame:Date.now(),series:5},false);
-        await setLives(lives - 1);
+        putGameToDB({right:result[0].length,wrong:result[1].length,dataGame:Date.now(),series:bestSeries},false);
+        setGameStates({lives:lives-1,state:1.5})
        
         if(varCont.current){
             varCont.current.childNodes[word.value.right].classList.add(`${styles.var_right}`);
@@ -91,7 +99,7 @@ const Audio = () => {
                 <h1 className={styles.sprint_main_teg}>audition task</h1>
             </div>
             <h1 className={styles.subtitle}>The Audio-Call training develops vocabulary and improves listening comprehension.</h1>
-            <LevelPicker rePick={setLevel} state={level}/>
+            <LevelPicker/>
             <button onClick={()=>{startGame()}} className={styles.start}>Get started</button>
         </div> 
     </div>

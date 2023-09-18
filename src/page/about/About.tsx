@@ -20,7 +20,7 @@ const About = () => {
             <h1 className={styles.title_text}>Alex and comrades</h1>
             
         </div>
-        <h1 className={styles.subtitle}>Made design, api queries, statistics, sprint game, did some layout and supervised development.</h1>
+        <h1 className={styles.subtitle}>Made design.</h1>
       </div>
       
     </div>

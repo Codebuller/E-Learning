@@ -132,7 +132,7 @@ border: 6px solid var(--primaty-cyan-light, #C3DCE3);
     margin-right: auto;
     }
     .anim_text{
-        animation: bop 1s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards alternate;
+        animation: bop 1s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards ;
     }
     .scores_gr_title{
         color: var(--primaty-black, #000);
@@ -263,7 +263,7 @@ letter-spacing: -0.56px;
     }
     .invalid {
         outline-color: red;
-        /* also need animation and -moz-animation */
+      
        animation: shake .5s linear;
     }
     /* also need keyframes and -moz-keyframes */
