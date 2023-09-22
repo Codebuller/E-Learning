@@ -3,24 +3,35 @@ import styles from './Statistic.module.css'
 import UIChart from "../../UI/chart/UIChart";
 import { restructDataUserAll,restructDataUserDay } from "../../helpers/firebase";
 import Spiner from "../../UI/spiner/UISpiner";
-// type GameIndicators = {
-//     words:number,
-//     correct:number,
-//     series:number
-// }
+interface IStat {
+sprint: {
+    words: number;
+    correct: number;
+    series: number;
+},
+audio: {
+    words: number;
+    correct: number;
+    series: number;
+}
+}
+interface IStatGame {
+        words: number,
+        correct: number,
+        series: number, 
+}
 const Stastic = () => {
     const [interval,setInterval] = useState(true)
-    const [sprint,setSprint] = useState<any>();
-    const [audio,setAudio] = useState<any>()
+    const [sprint,setSprint] = useState<IStatGame>({words:0,correct: 0,series: 0 });
+    const [audio,setAudio] = useState<IStatGame>({words:0,correct: 0,series: 0 })
     useEffect(()=>{
         const fetch = async () =>{
-            setAudio(undefined);
-            setSprint(undefined);
-            let data
+         
+            let data:IStat|undefined;
             if(interval)
-                data = await restructDataUserAll()
-            else 
                 data = await restructDataUserDay()
+            else 
+                data = await restructDataUserAll()
             setAudio(data.audio);
             setSprint(data.sprint);
         }

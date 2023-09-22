@@ -3,12 +3,23 @@ import styles from './UIChart.module.css'
 import {Legend, LineChart , XAxis, CartesianGrid, Line, YAxis,Tooltip} from "recharts";
 import { getDataForCharts } from "../../helpers/firebase";
 import Spiner from "../spiner/UISpiner";
+interface dataChart {
+  
+  name: string;
+  sprint: number;
+  audio: number;
+
+}
 const UIChart = () => {
   
-  const [data,setData] = useState<any>();
+  const [data,setData] = useState<dataChart[]>([]);
+  const [er,setEr] = useState<boolean>(true);
   useEffect(()=>{
     const fetch = async ()=>{
-      setData(await getDataForCharts())
+      try{setData(await getDataForCharts())}
+      catch(er){
+        setEr(false)
+      }
     }
     fetch()
   },[])
@@ -30,7 +41,11 @@ const UIChart = () => {
   )
   else
     return(
-    <Spiner/>
+  <>
+  {
+    er &&  <Spiner/>
+  }
+   </>
 
 
       )

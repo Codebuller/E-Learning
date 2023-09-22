@@ -44,7 +44,7 @@ const firebaseConfig = {
   }
   const dbRef =  ref(database)
 
-  const GetFromDB = async ( request:string ):Promise<any>  =>{
+  const GetFromDB = async ( request:string ) =>{
     return (await get(child(dbRef, request))).val() ?? null
        
     
@@ -54,7 +54,7 @@ const firebaseConfig = {
     
     for(let inde = 0;inde<10;++inde){
       
-      let i:number = random.int(0,4999);
+      const i:number = random.int(0,4999);
       const word:WordPair = await GetFromDB(`words/${i}`)
       if(random.boolean())
         yield {
@@ -66,7 +66,7 @@ const firebaseConfig = {
       else{
         let j = random.int(1,500);
         j = (i-j>0) ?i-j :i+j;
-        let another:WordPair = await GetFromDB(`words/${j}`);
+        const another:WordPair = await GetFromDB(`words/${j}`);
         yield {
           en: word.en,
           ru: another.ru,
@@ -83,7 +83,7 @@ const firebaseConfig = {
 
   export async function* audioGet(){
     while(true){
-      const keyWord:any =  await GetFromDB(`words/${random.int(0,4999)}`);
+      const keyWord =  await GetFromDB(`words/${random.int(0,4999)}`);
       
         const card:AudioCard =  {
           en: keyWord.en,
@@ -112,21 +112,13 @@ const firebaseConfig = {
   }
 
   export const putGameToDB = (game:Game,sprint:boolean) =>{
-    if(!!sprint){
-      try{set(ref(database, `users/${getSession().UID}/sprint/${game.dataGame.toString()}`), game
-      );
-    }
-    catch(er:any){
-      throw er;
-    }
+    if(!sprint){
+      set(ref(database, `users/${getSession().UID}/audio/${Date.now().toString()}`), game);
+
+
 }
 else{
-  try{set(ref(database, `users/${getSession().UID}/audio/${Date.now().toString()}`), game
-  );
-}
-catch(er:any){
-  throw er;
-}
+  set(ref(database, `users/${getSession().UID}/sprint/${game.dataGame.toString()}`), game);
 }
   }
   
@@ -160,7 +152,7 @@ export const restructDataUserAll = async () =>{
   return {sprint:{words:0,correct:0,series:0},audio:{words:0,correct:0,series:0}};
   let sprintWords:number = 0,sprintCorrect:number = 0,sprintSeries:number = 0;
   let games = allGames['sprint']
-    for (let key in games) {
+    for (const key in games) {
     sprintWords+=games[key].right;
     sprintCorrect= sprintCorrect!==0 ? (sprintCorrect+games[key].right/(games[key].wrong+games[key].right))/2 : games[key].right/(games[key].wrong+games[key].right);
     sprintSeries = Math.max(sprintSeries,games[key].series);
@@ -169,7 +161,7 @@ export const restructDataUserAll = async () =>{
     sprintCorrect = Math.floor(sprintCorrect*100);
   games = allGames['audio']
   let audioWords:number = 0,audioCorrect:number = 0,audioSeries:number = 0;
-  for (let key in games) {
+  for (const key in games) {
     audioWords+=games[key].right;
     audioCorrect= audioCorrect!==0 ? (audioCorrect+games[key].right/(games[key].wrong+games[key].right))/2 : games[key].right/(games[key].wrong+games[key].right);
     audioSeries = Math.max(audioSeries,games[key].series);
@@ -185,7 +177,7 @@ export const restructDataUserDay = async () =>{
   return {sprint:{words:0,correct:0,series:0},audio:{words:0,correct:0,series:0}};
   let sprintWords:number = 0,sprintCorrect:number = 0,sprintSeries:number = 0;
   let games = allGames['sprint']
-    for (let key in games) {
+    for (const  key in games) {
       if(parseInt(key)/1000 + 86400 <  (new Date().getTime()/1000))
         continue;
       sprintWords+=games[key].right;
@@ -196,7 +188,7 @@ export const restructDataUserDay = async () =>{
     sprintCorrect = Math.floor(sprintCorrect*100);
   games = allGames['audio']
   let audioWords:number = 0,audioCorrect:number = 0,audioSeries:number = 0;
-  for (let key in games) {
+  for (const key in games) {
       if(parseInt(key)/1000 + 86400 <  (new Date().getTime()/1000))
         continue;
       audioWords+=games[key].right;
@@ -218,7 +210,7 @@ export const getDataForCharts = async () =>{
   
   let start = parseInt(sprintKeys[0]) - parseInt(sprintKeys[0])%86400000
   let end =  start + 86400000 ;
-  let endDay:number =  Math.max(Math.ceil(((parseInt(sprintKeys[sprintKeys.length - 1]) - parseInt(sprintKeys[0])  ) / 86400000)),
+  const endDay:number =  Math.max(Math.ceil(((parseInt(sprintKeys[sprintKeys.length - 1]) - parseInt(sprintKeys[0])  ) / 86400000)),
   Math.ceil (  (parseInt(audioKeys[audioKeys.length - 1]) -  (parseInt(audioKeys[0])    )) / 86400000))
 
   let i = 0;

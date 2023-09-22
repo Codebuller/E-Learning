@@ -5,6 +5,10 @@ import { startSession} from '../../helpers/session.js'
 import Spiner from "../../UI/spiner/UISpiner.js";
 import { useNavigate } from "react-router-dom";
 import {useDispatch } from 'react-redux'
+import UIAlert from "../../UI/alert/Alert.js";
+import { useMergeState } from "../../hooks/useMergeState.js";
+import { UserCredential } from "firebase/auth";
+
 const Registration = () => {
   
   const dispatch = useDispatch();
@@ -12,18 +16,23 @@ const Registration = () => {
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState(['','']);
   const [name,setName] = useState('');
-
+  const [error,setError] = useMergeState({isError:false,text:""})
   const [waiting,setWaiting] = useState(true)
+
+  const showError = (error:string) =>{
+    setError({isError:true,text:error});
+    setTimeout(()=>{setError({isError:false,text:''})},5000)
+  }
 
   const validateEmail = (email:string):boolean => {
     return !!email.match(
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
   };
   const validName = (name:string):boolean =>{
     return !!name.match(/^[a-z ]+$/igm);
   }
-  const submit = async (e:any) =>{
+  const submit = async (e:React.FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
     setWaiting(false)
 
@@ -38,7 +47,7 @@ const Registration = () => {
       throw new Error('Name consist of minimum 3 letter')
       if(password[0].length < 6)
       throw new Error('Name consist of minimum 6 letter')
-      let response =  await createUser(email,password[0]);
+      const response:UserCredential =  await createUser(email,password[0]);
       startSession(response.user, name);
       setWaiting(true)
       dispatch({type:'LOGIN'})
@@ -46,24 +55,20 @@ const Registration = () => {
       
      
     }
-    catch(error:any){
+    catch(error){
       
       setWaiting(true)
-      console.log(error.message)
+      showError((error as Error).message)
      }
     
    }
-  //  set(ref(database,'user'+'555'),{
-  //   username: 'Ваня',
-  //   email:"text@mail.ru"
-  //  })
   
 
   return ( 
     <div className={styles.screen}>
         <div className={styles.login}>
             <h1 className={styles.title}>Registration</h1>
-            <form onSubmit={(e)=>{submit(e)}} className={styles.form_container} >
+            <form onSubmit={submit} className={styles.form_container} >
               <input value={name} type="text" onChange={(e)=>{setName(e.target.value)}} placeholder="Username" className={styles.form} />
               <input   value={email} onChange={(e)=>{setEmail(e.target.value)}} type="email" placeholder="Email" className={styles.form} />
               
@@ -74,14 +79,12 @@ const Registration = () => {
               : <Spiner   />
               }
               </form>
-            
-{/*             
-            {waiting 
-              ? <div onClick={()=>submit()} ></div>
-              : <Spiner  />
-              } */}
+        
 
         </div>
+        { error.isError &&
+        <UIAlert text={error.text} />
+}
     </div>
   )
 };
